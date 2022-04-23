@@ -16,7 +16,7 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            if (context.eventName === "issue_comment" && context.payload.issue.pull_request === undefined)
+            if (context.eventName === "issue_comment" && context.payload.issue.pull_request === undefined) {
               console.log("Issue comment is ignored")
               return
             }
