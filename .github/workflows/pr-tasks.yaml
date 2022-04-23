@@ -20,7 +20,7 @@ jobs:
               console.log("Issue comment is ignored")
               return
             }
-            const pr = await github.pulls.get({
+            const pr = await github.rest.pulls.get({
                 owner: context.issue.owner,
                 repo: context.issue.repo,
                 pull_number: context.issue.number
@@ -31,21 +31,21 @@ jobs:
             var comments = []
         
             comments.push(pr.data.body)
-            const issueComments = await github.paginate(github.issues.listComments.endpoint.merge({
+            const issueComments = await github.paginate(github.rest.issues.listComments.endpoint.merge({
                 owner: context.issue.owner,
                 repo: context.issue.repo,
                 issue_number: context.issue.number
             }))
             comments.push(...issueComments.map(comment => comment.body))
         
-            const prComments = await github.paginate(github.pulls.listReviewComments.endpoint.merge({
+            const prComments = await github.paginate(github.rest.pulls.listReviewComments.endpoint.merge({
                 owner: context.issue.owner,
                 repo: context.issue.repo,
                 pull_number: context.issue.number
             }))
             comments.push(...prComments.map(comment => comment.body))
         
-            const prReviews = await github.paginate(github.pulls.listReviews.endpoint.merge({
+            const prReviews = await github.paginate(github.rest.pulls.listReviews.endpoint.merge({
                 owner: context.issue.owner,
                 repo: context.issue.repo,
                 pull_number: context.issue.number
@@ -78,7 +78,7 @@ jobs:
                     state.description = closedTasks.length + " tasks closed"
                 }
             }
-            await github.repos.createCommitStatus({
+            await github.rest.repos.createCommitStatus({
                 ...state,
                 owner: context.issue.owner,
                 repo: context.issue.repo,
