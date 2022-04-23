@@ -14,4 +14,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "A comment on PR ${{ github.event_name }}"
+          echo "A comment on PR `cat ${{ github.event_path }}`"
