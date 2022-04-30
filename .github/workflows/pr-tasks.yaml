@@ -85,6 +85,6 @@ jobs:
                 ...state,
                 owner: context.issue.owner,
                 repo: context.issue.repo,
-                sha: pr.data.head.sha,
+                sha: pr.data.merge_commit_sha,
                 context: "pr-tasks-workflow"
             })
